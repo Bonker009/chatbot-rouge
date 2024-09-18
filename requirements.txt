@@ -1,0 +1,24 @@
+fastapi
+uvicorn
+pydantic
+langchain
+langserve[all]
+langsmith
+sqlalchemy
+databases
+asyncpg
+psycopg2-binary
+email-validator
+
+# Testing dependencies
+pytest
+httpx
+pytest-asyncio
+
+# JWT dependencies
+pyjwt
+passlib[bcrypt]       # For password hashing
+python-jose           # For JWT handling
+python-multipart      # For handling multipart/form-data
+bcrypt==4.0.1         # Ensure bcrypt version is compatible with passlib
+cryptography          # Dependency for bcrypt

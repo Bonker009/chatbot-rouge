@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:1234@db:5432/recipes
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: recipes
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+  test:
+    build: .
+    environment:
+      - DATABASE_URL=postgresql://postgres:1234@db:5432/recipes
+    depends_on:
+      - db
+    volumes:
+      - .:/app  # Ensure app code is accessible
+    command: ["pytest", "tests"]  # Run all tests in the tests directory
+
+volumes:
+  postgres_data:
